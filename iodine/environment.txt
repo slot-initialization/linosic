@@ -1,0 +1,11 @@
+These are not strict requirements, they only show the environment, on which this project was tested:
+
+python==3.8.10
+pip==22.2.1
+setuptools==63.3.0
+Operating System==Ubuntu 20.04.4 LTS
+Kernel==Linux 5.4.0-105-generic
+Architecture==x86-64
+GPU==GeForce RTX 3090
+Driver==460.106.00
+CUDA==11.2

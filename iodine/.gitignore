@@ -1,0 +1,9 @@
+.idea/
+__pycache__/
+checkpoints/
+datasets
+logs/
+model/__pycache__/
+persistance/__pycache__/
+checkpoints_old/
+

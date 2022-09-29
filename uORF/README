@@ -1,0 +1,51 @@
+Download the datasets from "https://drive.google.com/drive/folders/1oZPbTxWVzzqyYLPRaHjQiR2bLsG4VBwA?usp=sharing" with the name uORFDatasets.
+
+Create two folders "/uORFDatasets/room_diverse_x" in root and move the dataset pictures in there.
+
+Go to root and type "python3 -m venv ./" --> This creates a python environment in root
+
+Type "source bin/activate"  --> This will activate the python environment
+
+Type "pip install -r requirements.txt"  --> This will install all the dependencies for uORF.
+
+Go to this page "https://pytorch.org/get-started/previous-versions/" and select the most fitting pytorch version 1.8.1, then copy the command and run it in your environment. --> This will install the PyTorch version that will fit to your hardware.
+Pytorch version should look something like this: pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+
+Create folders in root: /checkpoints and /results
+
+Now go to /scripts and open "train_room_diverse.sh".
+
+If you want to train on 2 gpus, then make sure of the following: --gpu_ids 0,1 --batch_size 2 --> batch_size should be always equal the number of gpus.
+
+If you want visualizing during training, make sure: --visualising 'True' if not --visualising 'False' --> this will allow/prevent displaing pictures on your localhost in port 8077
+
+You can also outcomment the line "python -m visdom.server -p $PORT &>/dev/null &"  in "train_room_diverse.sh" if you don't want visualization, but still have --visualising 'False'.
+
+Make sure your parameter --name is for every training unique.
+
+If you want to continue training add these parameters: "--continue_train" and "--exp_id your_experiment_name"
+
+to start training type in root "bash scripts/train_room_diverse.sh"
+
+
+EVALUATION:
+Open the evaluation script in root ./scripts/eval_nvs_seg_diverse.sh
+
+The training results are in root under the path ./checkpoints/name/exp_id, therefore do the following:
+variable CHECKPOINT=${2:-'./checkpoints/'}
+variable DATAROOT=${1:-'./uORFDatasets/room_diverse_test'} or your path to the test dataset
+Set the Arguments of evaluation script according to your train result path: 
+--dataroot $DATAROOT --checkpoints_dir $CHECKPOINT --name name --exp_id exp_id --results_dir 'results'
+
+Set the argument --slot_init according to your version:
+Valid Versions are: kmeans, regular, PseudoWeightsOld
+
+
+Set the evaluation model with:
+--model 'uorf_eval'
+
+If you don't want visualization, then: 
+--visualising 'False' and outcomment this lines in the evaluation script: "python -m visdom.server -p $PORT &>/dev/null &"
+
+Now run the script and all the results are printed on the console and the results are stored in root under the path ./results/name/exp_id/loss_log.txt
+

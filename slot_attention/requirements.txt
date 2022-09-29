@@ -1,0 +1,10 @@
+matplotlib==3.5.2
+torchmetrics==0.8.2
+tqdm==4.64.0
+numpy==1.23.1
+# torchvision==0.13.0+cu113
+Pillow==9.2.0
+scikit-learn==1.1.1
+lpips==0.1.4
+tensorboard==2.9.1
+requests==2.28.1
